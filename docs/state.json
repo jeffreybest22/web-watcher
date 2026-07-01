@@ -1,0 +1,31 @@
+{
+  "updated_at": "2026-07-01T22:30:08.722Z",
+  "watches": {
+    "natcash-api": {
+      "id": "natcash-api",
+      "label": "API Natcash disponible pour développeurs",
+      "status": "watching",
+      "alerted": false,
+      "confidence": 0.2,
+      "evidence_url": null,
+      "quote": null,
+      "summary": "Aucune preuve concrète d'une API publique ou d'une documentation développeur officielle pour Natcash n'a été trouvée, malgré la présence de projets tiers sur GitHub et d'une collection Postman non officielle.",
+      "last_checked": "2026-07-01T22:30:02.707Z",
+      "first_found_at": null,
+      "search_provider": "duckduckgo"
+    },
+    "visa-rd-en-ligne": {
+      "id": "visa-rd-en-ligne",
+      "label": "Visa République Dominicaine en ligne depuis Haïti",
+      "status": "watching",
+      "alerted": false,
+      "confidence": 0,
+      "evidence_url": null,
+      "quote": null,
+      "summary": "Aucune information concrète ou officielle n'a été trouvée concernant une procédure de demande de visa en ligne ou un visa électronique pour les Haïtiens sur les sources officielles surveillées.",
+      "last_checked": "2026-07-01T22:30:08.722Z",
+      "first_found_at": null,
+      "search_provider": "duckduckgo"
+    }
+  }
+}

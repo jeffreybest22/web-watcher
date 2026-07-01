@@ -1,0 +1,34 @@
+[
+  {
+    "id": "natcash-api",
+    "label": "API Natcash disponible pour développeurs",
+    "question": "Natcash (ou la Unibank) a-t-il OFFICIELLEMENT annoncé ou rendu disponible une API publique / une documentation développeur permettant d'intégrer Natcash (paiements, transferts) dans une application tierce ? Réponds 'trouvé' seulement s'il y a une preuve concrète (page officielle, doc, annonce datée), pas une simple rumeur ou une vieille discussion.",
+    "sources": [
+      "https://natcash.ht",
+      "https://www.unibankhaiti.com"
+    ],
+    "search_queries": [
+      "Natcash API développeur",
+      "Natcash API documentation",
+      "Natcash developer API integration",
+      "Natcash API disponible 2026"
+    ],
+    "keywords": ["api", "developer", "développeur", "documentation", "intégration", "sdk"]
+  },
+  {
+    "id": "visa-rd-en-ligne",
+    "label": "Visa République Dominicaine en ligne depuis Haïti",
+    "question": "Le consulat / l'ambassade de la République Dominicaine en Haïti (ou le gouvernement dominicain) a-t-il rendu disponible une procédure de demande de VISA EN LIGNE pour les Haïtiens, ou un visa électronique (e-visa) ? Réponds 'trouvé' seulement s'il existe un portail/annonce officiel concret et daté, pas une rumeur.",
+    "sources": [
+      "https://www.mirex.gob.do",
+      "https://www.migracion.gob.do"
+    ],
+    "search_queries": [
+      "visa République Dominicaine en ligne Haïti",
+      "e-visa Dominican Republic Haiti online",
+      "visa RD Haïti demande en ligne 2026",
+      "consulado dominicano Haiti visa online"
+    ],
+    "keywords": ["visa", "en ligne", "online", "e-visa", "electrónica", "portal", "demande"]
+  }
+]
