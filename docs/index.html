@@ -5,58 +5,258 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Web Watcher — Veille</title>
   <style>
-    :root { --bg:#0f1115; --card:#1a1d25; --line:#2a2e3a; --txt:#e6e8ee; --muted:#9aa0ab; --ok:#22c55e; --wait:#f59e0b; }
+    :root { --bg:#0f1115; --card:#1a1d25; --line:#2a2e3a; --txt:#e6e8ee; --muted:#9aa0ab; --ok:#22c55e; --wait:#f59e0b; --acc:#60a5fa; --danger:#ef4444; }
     * { box-sizing: border-box; }
     body { margin:0; font-family: -apple-system, Segoe UI, Roboto, sans-serif; background:var(--bg); color:var(--txt); }
     .wrap { max-width: 820px; margin: 0 auto; padding: 24px 16px 64px; }
     h1 { font-size: 22px; margin: 0 0 4px; }
-    .sub { color: var(--muted); font-size: 13px; margin-bottom: 24px; }
+    .sub { color: var(--muted); font-size: 13px; margin-bottom: 18px; }
+
+    /* Menu */
+    .menu { display:flex; gap:8px; margin-bottom: 22px; border-bottom:1px solid var(--line); padding-bottom: 0; }
+    .menu button { background:none; border:none; color:var(--muted); font-size:15px; font-weight:600; padding:10px 14px; cursor:pointer; border-bottom:2px solid transparent; }
+    .menu button.active { color:var(--txt); border-bottom-color: var(--acc); }
+    .menu .spacer { flex:1; }
+    .menu .gear { font-size:17px; }
+
     .card { background: var(--card); border: 1px solid var(--line); border-radius: 14px; padding: 18px; margin-bottom: 14px; }
     .row { display:flex; justify-content: space-between; align-items: flex-start; gap: 12px; }
     .label { font-weight: 600; font-size: 16px; }
     .badge { font-size: 12px; font-weight: 700; padding: 4px 10px; border-radius: 999px; white-space: nowrap; }
     .found { background: rgba(34,197,94,.15); color: var(--ok); }
     .watching { background: rgba(245,158,11,.15); color: var(--wait); }
+    .pending { background: rgba(96,165,250,.15); color: var(--acc); }
     .summary { color: var(--muted); font-size: 14px; margin: 10px 0 6px; line-height: 1.5; }
     .meta { color: var(--muted); font-size: 12px; }
-    a { color: #60a5fa; word-break: break-all; }
+    a { color: var(--acc); word-break: break-all; }
     .conf { height: 5px; background: var(--line); border-radius: 999px; overflow: hidden; margin-top: 10px; }
     .conf > i { display:block; height:100%; background: var(--ok); }
     .foot { color: var(--muted); font-size: 12px; margin-top: 24px; text-align:center; }
+    .del { background:none; border:none; cursor:pointer; font-size:15px; opacity:.55; }
+    .del:hover { opacity:1; }
+
+    /* Formulaire */
+    .field { margin-bottom: 14px; }
+    .field label { display:block; font-size:13px; font-weight:600; margin-bottom:6px; }
+    .field .hint { font-weight:400; color:var(--muted); }
+    input[type=text], input[type=password], textarea {
+      width:100%; background:#12141a; border:1px solid var(--line); border-radius:10px;
+      color:var(--txt); padding:10px 12px; font-size:14px; font-family:inherit;
+    }
+    textarea { min-height: 74px; resize: vertical; }
+    input:focus, textarea:focus { outline:none; border-color: var(--acc); }
+    .btn { background: var(--acc); color:#0b1020; border:none; border-radius:10px; padding:11px 18px; font-size:15px; font-weight:700; cursor:pointer; }
+    .btn:disabled { opacity:.5; cursor:default; }
+    .btn.secondary { background:var(--line); color:var(--txt); }
+    .msg { margin-top:12px; font-size:14px; padding:10px 12px; border-radius:10px; display:none; }
+    .msg.ok { display:block; background:rgba(34,197,94,.12); color:var(--ok); }
+    .msg.err { display:block; background:rgba(239,68,68,.12); color:var(--danger); }
+    .tokenbox { display:none; }
+    .tokenbox.show { display:block; }
+    .hidden { display:none; }
   </style>
 </head>
 <body>
   <div class="wrap">
     <h1>🔭 Web Watcher</h1>
     <div class="sub" id="updated">Chargement…</div>
-    <div id="list"></div>
-    <div class="foot">Mise à jour automatique via GitHub Actions · <a href="https://github.com">repo</a></div>
+
+    <nav class="menu">
+      <button id="tab-list" class="active" onclick="showTab('list')">📡 Veilles</button>
+      <button id="tab-add" onclick="showTab('add')">➕ Ajouter</button>
+      <div class="spacer"></div>
+      <button class="gear" title="Token GitHub" onclick="showTab('token')">⚙️</button>
+    </nav>
+
+    <!-- Section liste -->
+    <section id="sec-list">
+      <div id="list"></div>
+    </section>
+
+    <!-- Section ajout -->
+    <section id="sec-add" class="hidden">
+      <div class="card">
+        <div class="field">
+          <label>Titre de la veille</label>
+          <input type="text" id="f-label" placeholder="Ex: API Digicel disponible pour développeurs" />
+        </div>
+        <div class="field">
+          <label>Question posée à l'IA <span class="hint">— sois précis sur ce qui compte comme « trouvé » (officiel, daté, concret) pour éviter les faux positifs</span></label>
+          <textarea id="f-question" placeholder="Ex: Digicel Haïti a-t-il OFFICIELLEMENT annoncé une API publique permettant... ? Réponds 'trouvé' seulement s'il y a une preuve concrète (page officielle, annonce datée), pas une rumeur."></textarea>
+        </div>
+        <div class="field">
+          <label>Sources officielles à surveiller <span class="hint">— une URL par ligne (optionnel)</span></label>
+          <textarea id="f-sources" placeholder="https://www.digicelgroup.com/ht&#10;https://..."></textarea>
+        </div>
+        <div class="field">
+          <label>Requêtes de recherche web <span class="hint">— une par ligne, varie les langues/formulations</span></label>
+          <textarea id="f-queries" placeholder="Digicel Haïti API développeur&#10;Digicel Haiti developer API 2026"></textarea>
+        </div>
+        <div class="field">
+          <label>Mots-clés indicatifs <span class="hint">— séparés par des virgules (optionnel)</span></label>
+          <input type="text" id="f-keywords" placeholder="api, developer, documentation" />
+        </div>
+        <button class="btn" id="f-submit" onclick="addWatch()">➕ Ajouter la veille</button>
+        <div class="msg" id="f-msg"></div>
+      </div>
+    </section>
+
+    <!-- Section token -->
+    <section id="sec-token" class="hidden">
+      <div class="card">
+        <div class="field">
+          <label>Token GitHub (PAT) <span class="hint">— requis pour ajouter/supprimer des veilles depuis cette page. Stocké uniquement dans TON navigateur (localStorage), jamais envoyé ailleurs qu'à api.github.com.</span></label>
+          <input type="password" id="f-token" placeholder="ghp_…" />
+        </div>
+        <button class="btn" onclick="saveToken()">Enregistrer</button>
+        <button class="btn secondary" onclick="clearToken()" style="margin-left:8px">Effacer</button>
+        <div class="msg" id="t-msg"></div>
+      </div>
+    </section>
+
+    <div class="foot">Vérification auto toutes les 30 min · <a href="https://github.com/jeffreybest22/web-watcher" target="_blank">repo</a> · <a href="https://github.com/jeffreybest22/web-watcher/actions" target="_blank">runs</a></div>
   </div>
+
   <script>
+    const REPO = 'jeffreybest22/web-watcher';
+    const API = 'https://api.github.com/repos/' + REPO;
+
     function esc(s){ return (s||"").replace(/[&<>]/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;'}[c])); }
-    function timeago(iso){ if(!iso) return "—"; const d=new Date(iso); return d.toLocaleString('fr-FR'); }
-    fetch('./state.json?_=' + Date.now()).then(r => r.json()).then(state => {
-      document.getElementById('updated').textContent = 'Dernière vérif : ' + timeago(state.updated_at);
+    function timeago(iso){ if(!iso) return "—"; return new Date(iso).toLocaleString('fr-FR'); }
+    function token(){ return localStorage.getItem('ww_token') || ''; }
+    function slugify(s){ return s.toLowerCase().normalize('NFD').replace(/[̀-ͯ]/g,'').replace(/[^a-z0-9]+/g,'-').replace(/^-+|-+$/g,'').slice(0,40) || 'veille'; }
+    // base64 <-> UTF-8
+    function b64decode(b){ return decodeURIComponent(escape(atob(b.replace(/\n/g,'')))); }
+    function b64encode(s){ return btoa(unescape(encodeURIComponent(s))); }
+
+    function showTab(t){
+      for (const x of ['list','add','token']) {
+        document.getElementById('sec-'+x).classList.toggle('hidden', x!==t);
+        const tb = document.getElementById('tab-'+x);
+        if (tb) tb.classList.toggle('active', x===t);
+      }
+      if (t==='token') document.getElementById('f-token').value = token();
+    }
+
+    function ghHeaders(){
+      const h = { 'Accept':'application/vnd.github+json' };
+      if (token()) h['Authorization'] = 'Bearer ' + token();
+      return h;
+    }
+
+    // Lit watches.json via l'API contents (à jour, contrairement au CDN raw)
+    async function getWatchesFile(){
+      const r = await fetch(API + '/contents/watches.json?ref=main&_=' + Date.now(), { headers: ghHeaders() });
+      if (!r.ok) throw new Error('GitHub HTTP ' + r.status);
+      const d = await r.json();
+      return { sha: d.sha, watches: JSON.parse(b64decode(d.content)) };
+    }
+
+    async function putWatchesFile(watches, sha, message){
+      const r = await fetch(API + '/contents/watches.json', {
+        method: 'PUT',
+        headers: { ...ghHeaders(), 'Content-Type':'application/json' },
+        body: JSON.stringify({ message, sha, content: b64encode(JSON.stringify(watches, null, 2) + '\n'), branch: 'main' })
+      });
+      if (!r.ok) {
+        const e = await r.json().catch(()=>({}));
+        throw new Error('Commit refusé (HTTP ' + r.status + ') ' + (e.message||''));
+      }
+    }
+
+    async function triggerRun(){
+      try {
+        await fetch(API + '/actions/workflows/monitor.yml/dispatches', {
+          method:'POST', headers: { ...ghHeaders(), 'Content-Type':'application/json' },
+          body: JSON.stringify({ ref:'main' })
+        });
+      } catch(e){ /* best effort */ }
+    }
+
+    // ---- Liste ----
+    async function render(){
+      let state = { watches: {} };
+      try { state = await (await fetch('./state.json?_=' + Date.now())).json(); } catch(e){}
+      let watches = [];
+      try { watches = (await getWatchesFile()).watches; }
+      catch(e){ watches = Object.values(state.watches||{}); } // fallback si API rate-limitée
+
+      document.getElementById('updated').textContent = state.updated_at ? ('Dernière vérif : ' + timeago(state.updated_at)) : 'En attente du premier passage…';
       const list = document.getElementById('list');
-      const items = Object.values(state.watches || {});
-      if (!items.length) { list.innerHTML = '<div class="card">Aucune veille configurée.</div>'; return; }
-      list.innerHTML = items.map(w => {
-        const found = w.status === 'found';
-        const conf = Math.round((w.confidence||0)*100);
+      if (!watches.length) { list.innerHTML = '<div class="card">Aucune veille configurée. Utilise l\'onglet ➕ Ajouter.</div>'; return; }
+
+      list.innerHTML = watches.map(w => {
+        const s = (state.watches||{})[w.id] || null;
+        const found = s && s.status === 'found';
+        const conf = Math.round(((s&&s.confidence)||0)*100);
+        const badge = !s ? '<div class="badge pending">🆕 en attente</div>'
+          : found ? '<div class="badge found">✅ TROUVÉ</div>' : '<div class="badge watching">⏳ surveille</div>';
+        const delBtn = token() ? `<button class="del" title="Supprimer cette veille" onclick="delWatch('${esc(w.id)}')">🗑️</button>` : '';
         return `<div class="card">
           <div class="row">
-            <div class="label">${esc(w.label)}</div>
-            <div class="badge ${found?'found':'watching'}">${found?'✅ TROUVÉ':'⏳ surveille'}</div>
+            <div class="label">${esc(w.label || (s&&s.label) || w.id)}</div>
+            <div style="display:flex;align-items:center;gap:8px">${badge}${delBtn}</div>
           </div>
-          <div class="summary">${esc(w.summary)||'—'}</div>
-          ${w.evidence_url?`<div class="meta">🔗 <a href="${esc(w.evidence_url)}" target="_blank">${esc(w.evidence_url)}</a></div>`:''}
+          <div class="summary">${esc((s&&s.summary)||'Sera vérifiée au prochain passage (max 30 min).')}</div>
+          ${s&&s.evidence_url?`<div class="meta">🔗 <a href="${esc(s.evidence_url)}" target="_blank">${esc(s.evidence_url)}</a></div>`:''}
           <div class="conf"><i style="width:${conf}%"></i></div>
-          <div class="meta" style="margin-top:8px">Confiance ${conf}% · vérifié ${timeago(w.last_checked)}${w.first_found_at?' · trouvé le '+timeago(w.first_found_at):''}</div>
+          <div class="meta" style="margin-top:8px">Confiance ${conf}%${s?' · vérifié '+timeago(s.last_checked):''}${s&&s.first_found_at?' · trouvé le '+timeago(s.first_found_at):''}</div>
         </div>`;
       }).join('');
-    }).catch(e => {
-      document.getElementById('updated').textContent = 'Pas encore de données (state.json absent). Lance le moniteur une fois.';
-    });
+    }
+
+    // ---- Ajout ----
+    function lines(id){ return document.getElementById(id).value.split('\n').map(s=>s.trim()).filter(Boolean); }
+    function msg(id, cls, text){ const el=document.getElementById(id); el.className='msg '+cls; el.textContent=text; }
+
+    async function addWatch(){
+      const label = document.getElementById('f-label').value.trim();
+      const question = document.getElementById('f-question').value.trim();
+      if (!label || !question) return msg('f-msg','err','Le titre et la question sont obligatoires.');
+      if (!token()) { showTab('token'); return msg('t-msg','err','Ajoute d\'abord ton token GitHub (⚙️) pour pouvoir enregistrer.'); }
+
+      const btn = document.getElementById('f-submit');
+      btn.disabled = true; msg('f-msg','ok','Enregistrement…');
+      try {
+        const { sha, watches } = await getWatchesFile();
+        let id = slugify(label), n = 2;
+        while (watches.some(w => w.id === id)) id = slugify(label) + '-' + (n++);
+        watches.push({
+          id, label, question,
+          sources: lines('f-sources'),
+          search_queries: lines('f-queries').length ? lines('f-queries') : [label],
+          keywords: document.getElementById('f-keywords').value.split(',').map(s=>s.trim()).filter(Boolean)
+        });
+        await putWatchesFile(watches, sha, 'add watch: ' + id);
+        await triggerRun();
+        msg('f-msg','ok','✅ Veille « ' + label + ' » ajoutée. Un run vient d\'être lancé — verdict d\'ici ~2 min.');
+        for (const f of ['f-label','f-question','f-sources','f-queries','f-keywords']) document.getElementById(f).value='';
+        render(); setTimeout(()=>showTab('list'), 1200);
+      } catch(e) {
+        msg('f-msg','err','Erreur : ' + e.message);
+      } finally { btn.disabled = false; }
+    }
+
+    async function delWatch(id){
+      if (!confirm('Supprimer la veille « ' + id + ' » ?')) return;
+      try {
+        const { sha, watches } = await getWatchesFile();
+        await putWatchesFile(watches.filter(w => w.id !== id), sha, 'remove watch: ' + id);
+        render();
+      } catch(e) { alert('Erreur : ' + e.message); }
+    }
+
+    // ---- Token ----
+    function saveToken(){
+      const v = document.getElementById('f-token').value.trim();
+      if (!v) return msg('t-msg','err','Colle un token ghp_…');
+      localStorage.setItem('ww_token', v);
+      msg('t-msg','ok','✅ Token enregistré dans ce navigateur.');
+      render(); setTimeout(()=>showTab('list'), 900);
+    }
+    function clearToken(){ localStorage.removeItem('ww_token'); document.getElementById('f-token').value=''; msg('t-msg','ok','Token effacé.'); render(); }
+
+    render();
   </script>
 </body>
 </html>
