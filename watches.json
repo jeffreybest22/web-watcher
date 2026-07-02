@@ -73,5 +73,30 @@
       "immigration",
       "visa pour haitien dans le monde"
     ]
+  },
+  {
+    "id": "vols-haiti-bresil",
+    "label": "Vols Haïti - Brésil",
+    "question": "Existe-t-il des vols directs ou avec escales entre Haïti (Port-au-Prince ou Cap-Haïten) et le Brésil ? Répondez 'trouvé' si vous trouvez une information officielle et à jour sur un site web d'une compagnie aérienne ou d'un aéroport.",
+    "sources": [
+      "https://www.aerodom.com/",
+      "https://www.cap-haitien.com/"
+    ],
+    "search_queries": [
+      "vols Port-au-Prince Brésil",
+      "flights from Haiti to Brazil",
+      "vuelos desde Haití a Brasil",
+      "Cap-Haïten vols Brésil",
+      "Haiti Brazil flight schedule"
+    ],
+    "keywords": [
+      "vols",
+      "haïti",
+      "brésil",
+      "port-au-prince",
+      "cap-haïten",
+      "avion",
+      "voyage"
+    ]
   }
 ]
