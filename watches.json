@@ -13,7 +13,14 @@
       "Natcash developer API integration",
       "Natcash API disponible 2026"
     ],
-    "keywords": ["api", "developer", "développeur", "documentation", "intégration", "sdk"]
+    "keywords": [
+      "api",
+      "developer",
+      "développeur",
+      "documentation",
+      "intégration",
+      "sdk"
+    ]
   },
   {
     "id": "visa-rd-en-ligne",
@@ -29,6 +36,42 @@
       "visa RD Haïti demande en ligne 2026",
       "consulado dominicano Haiti visa online"
     ],
-    "keywords": ["visa", "en ligne", "online", "e-visa", "electrónica", "portal", "demande"]
+    "keywords": [
+      "visa",
+      "en ligne",
+      "online",
+      "e-visa",
+      "electrónica",
+      "portal",
+      "demande"
+    ]
+  },
+  {
+    "id": "visa-pour-les-haitiens",
+    "label": "Visa pour les Haïtiens",
+    "question": "Existe-t-il une nouvelle opportunité de visa pour les citoyens haïtiens publiée sur un site officiel gouvernemental ou d'ambassade, avec une date de début d'application précise ? Répondez 'trouvé' seulement si vous trouvez une information officielle et datée.",
+    "sources": [
+      "https://ht.usembassy.gov/",
+      "https://www.canada.ca/fr/immigration-refugies-citoyennete.html",
+      "https://www.diplomatie.gouv.fr/fr/",
+      "https://www.immigration.fr/"
+    ],
+    "search_queries": [
+      "visa pour les Haïtiens 2026",
+      "opportunités de visa Haiti",
+      "programme de visa pour Haïti",
+      "visa Canada pour Haïtiens",
+      "visa États-Unis pour Haïtiens"
+    ],
+    "keywords": [
+      "visa",
+      "haïti",
+      "états-unis",
+      "canada",
+      "france",
+      "opportunité",
+      "immigration",
+      "visa pour haitien dans le monde"
+    ]
   }
 ]
