@@ -75,6 +75,14 @@
 
     <!-- Section ajout -->
     <section id="sec-add" class="hidden">
+      <div class="card" style="border-color:#3b4ba0">
+        <div class="field">
+          <label>✨ Génération IA <span class="hint">— décris ce que tu veux surveiller, l'IA pré-remplit les champs ci-dessous. Vérifie (surtout les URLs) puis valide.</span></label>
+          <textarea id="f-ai-prompt" style="min-height:52px" placeholder="Ex: préviens-moi quand Digicel Haïti lance une API publique pour les développeurs"></textarea>
+        </div>
+        <button class="btn" id="f-ai-btn" onclick="aiGenerate()">✨ Générer</button>
+        <div class="msg" id="ai-msg"></div>
+      </div>
       <div class="card">
         <div class="field">
           <label>Titre de la veille</label>
@@ -108,6 +116,10 @@
           <label>Token GitHub (PAT) <span class="hint">— requis pour ajouter/supprimer des veilles depuis cette page. Stocké uniquement dans TON navigateur (localStorage), jamais envoyé ailleurs qu'à api.github.com.</span></label>
           <input type="password" id="f-token" placeholder="ghp_…" />
         </div>
+        <div class="field">
+          <label>Clé Groq API <span class="hint">— pour le bouton ✨ Générer (pré-remplissage IA). Stockée uniquement dans ce navigateur, envoyée uniquement à api.groq.com.</span></label>
+          <input type="password" id="f-groq" placeholder="gsk_…" />
+        </div>
         <button class="btn" onclick="saveToken()">Enregistrer</button>
         <button class="btn secondary" onclick="clearToken()" style="margin-left:8px">Effacer</button>
         <div class="msg" id="t-msg"></div>
@@ -124,6 +136,7 @@
     function esc(s){ return (s||"").replace(/[&<>]/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;'}[c])); }
     function timeago(iso){ if(!iso) return "—"; return new Date(iso).toLocaleString('fr-FR'); }
     function token(){ return localStorage.getItem('ww_token') || ''; }
+    function groqKey(){ return localStorage.getItem('ww_groq') || ''; }
     function slugify(s){ return s.toLowerCase().normalize('NFD').replace(/[̀-ͯ]/g,'').replace(/[^a-z0-9]+/g,'-').replace(/^-+|-+$/g,'').slice(0,40) || 'veille'; }
     // base64 <-> UTF-8
     function b64decode(b){ return decodeURIComponent(escape(atob(b.replace(/\n/g,'')))); }
@@ -135,7 +148,7 @@
         const tb = document.getElementById('tab-'+x);
         if (tb) tb.classList.toggle('active', x===t);
       }
-      if (t==='token') document.getElementById('f-token').value = token();
+      if (t==='token') { document.getElementById('f-token').value = token(); document.getElementById('f-groq').value = groqKey(); }
     }
 
     function ghHeaders(){
@@ -246,15 +259,61 @@
       } catch(e) { alert('Erreur : ' + e.message); }
     }
 
+    // ---- Génération IA ----
+    const AI_SYSTEM = `Tu configures des veilles pour un outil qui surveille le web et alerte quand une information/annonce est publiée. À partir de la demande de l'utilisateur, génère une configuration de veille.
+
+Règles :
+- "label" : titre court et clair en français.
+- "question" : question STRICTE posée au juge IA à chaque passage. Elle doit exiger une preuve concrète et officielle (annonce datée, page/portail officiel, documentation) et dire explicitement de répondre 'trouvé' seulement dans ce cas, pas pour une rumeur, une vieille info ou un projet futur.
+- "sources" : 1 à 4 URLs de sites OFFICIELS très probablement pertinents (accueil du site officiel de l'organisation concernée). Ne mets une URL que si tu es raisonnablement sûr qu'elle existe ; sinon liste vide.
+- "search_queries" : 3 à 5 requêtes de recherche web variées (français + anglais, éventuellement espagnol/créole si pertinent, avec et sans année courante).
+- "keywords" : 3 à 8 mots-clés indicatifs en minuscules.
+
+Réponds UNIQUEMENT en JSON valide :
+{"label": string, "question": string, "sources": string[], "search_queries": string[], "keywords": string[]}`;
+
+    async function aiGenerate(){
+      const prompt = document.getElementById('f-ai-prompt').value.trim();
+      if (!prompt) return msg('ai-msg','err','Décris d\'abord ce que tu veux surveiller.');
+      if (!groqKey()) { showTab('token'); return msg('t-msg','err','Ajoute d\'abord ta clé Groq (gsk_…) pour utiliser la génération IA.'); }
+      const btn = document.getElementById('f-ai-btn');
+      btn.disabled = true; msg('ai-msg','ok','Génération en cours…');
+      try {
+        const r = await fetch('https://api.groq.com/openai/v1/chat/completions', {
+          method:'POST',
+          headers: { 'Authorization':'Bearer ' + groqKey(), 'Content-Type':'application/json' },
+          body: JSON.stringify({
+            model: 'llama-3.3-70b-versatile',
+            temperature: 0.3,
+            response_format: { type:'json_object' },
+            messages: [ { role:'system', content: AI_SYSTEM }, { role:'user', content: prompt } ]
+          })
+        });
+        if (!r.ok) throw new Error('Groq HTTP ' + r.status + (r.status===401 ? ' — clé invalide (⚙️)' : ''));
+        const d = await r.json();
+        const cfg = JSON.parse(d.choices[0].message.content);
+        document.getElementById('f-label').value = cfg.label || '';
+        document.getElementById('f-question').value = cfg.question || '';
+        document.getElementById('f-sources').value = (cfg.sources||[]).join('\n');
+        document.getElementById('f-queries').value = (cfg.search_queries||[]).join('\n');
+        document.getElementById('f-keywords').value = (cfg.keywords||[]).join(', ');
+        msg('ai-msg','ok','✅ Champs pré-remplis. Vérifie-les (surtout les URLs sources), édite si besoin, puis « ➕ Ajouter la veille ».');
+      } catch(e) {
+        msg('ai-msg','err','Erreur : ' + e.message);
+      } finally { btn.disabled = false; }
+    }
+
     // ---- Token ----
     function saveToken(){
       const v = document.getElementById('f-token').value.trim();
-      if (!v) return msg('t-msg','err','Colle un token ghp_…');
-      localStorage.setItem('ww_token', v);
-      msg('t-msg','ok','✅ Token enregistré dans ce navigateur.');
+      const g = document.getElementById('f-groq').value.trim();
+      if (!v && !g) return msg('t-msg','err','Colle au moins un token (ghp_… ou gsk_…).');
+      if (v) localStorage.setItem('ww_token', v);
+      if (g) localStorage.setItem('ww_groq', g);
+      msg('t-msg','ok','✅ Enregistré dans ce navigateur.');
       render(); setTimeout(()=>showTab('list'), 900);
     }
-    function clearToken(){ localStorage.removeItem('ww_token'); document.getElementById('f-token').value=''; msg('t-msg','ok','Token effacé.'); render(); }
+    function clearToken(){ localStorage.removeItem('ww_token'); localStorage.removeItem('ww_groq'); document.getElementById('f-token').value=''; document.getElementById('f-groq').value=''; msg('t-msg','ok','Tokens effacés.'); render(); }
 
     render();
   </script>
