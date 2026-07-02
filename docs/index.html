@@ -54,10 +54,68 @@
     .tokenbox { display:none; }
     .tokenbox.show { display:block; }
     .hidden { display:none; }
+
+    /* Auth */
+    #auth { position:fixed; inset:0; background:var(--bg); display:flex; align-items:center; justify-content:center; padding:20px; z-index:50; }
+    #auth .box { width:100%; max-width:380px; }
+    #auth h1 { text-align:center; font-size:24px; margin-bottom:4px; }
+    #auth .tag { text-align:center; color:var(--muted); font-size:13px; margin-bottom:22px; }
+    #auth .btn { width:100%; margin-top:4px; }
+    #auth .link { display:block; text-align:center; margin-top:16px; font-size:13px; cursor:pointer; color:var(--acc); background:none; border:none; width:100%; }
+    #app { display:none; }
+    .otp-input { text-align:center; letter-spacing:8px; font-size:22px; font-weight:700; }
   </style>
 </head>
 <body>
-  <div class="wrap">
+  <!-- Écran d'authentification -->
+  <div id="auth">
+    <div class="box">
+      <h1>🔭 Web Watcher</h1>
+      <div class="tag">Accès sécurisé</div>
+
+      <!-- Login -->
+      <div id="auth-login" class="card">
+        <div class="field">
+          <label>Email</label>
+          <input type="text" id="a-email" value="jeffreybest2@gmail.com" autocomplete="username" />
+        </div>
+        <div class="field">
+          <label>Mot de passe</label>
+          <input type="password" id="a-password" placeholder="••••••••" autocomplete="current-password" onkeydown="if(event.key==='Enter')doLogin()" />
+        </div>
+        <button class="btn" id="a-login-btn" onclick="doLogin()">Se connecter</button>
+        <button class="link" onclick="doForgot()">Mot de passe oublié / premier accès →</button>
+        <div class="msg" id="a-msg"></div>
+      </div>
+
+      <!-- OTP -->
+      <div id="auth-otp" class="card hidden">
+        <div class="field">
+          <label>Code de vérification <span class="hint">— envoyé par email</span></label>
+          <input type="text" inputmode="numeric" maxlength="6" id="a-otp" class="otp-input" placeholder="000000" onkeydown="if(event.key==='Enter')doVerify()" />
+        </div>
+        <button class="btn" id="a-otp-btn" onclick="doVerify()">Vérifier</button>
+        <button class="link" onclick="backToLogin()">← Retour</button>
+        <div class="msg" id="a-otp-msg"></div>
+      </div>
+
+      <!-- Définir mot de passe -->
+      <div id="auth-setpw" class="card hidden">
+        <div class="field">
+          <label>Nouveau mot de passe <span class="hint">— 8 caractères minimum</span></label>
+          <input type="password" id="a-newpw" placeholder="••••••••" autocomplete="new-password" />
+        </div>
+        <div class="field">
+          <label>Confirmer</label>
+          <input type="password" id="a-newpw2" placeholder="••••••••" autocomplete="new-password" onkeydown="if(event.key==='Enter')doSetPw()" />
+        </div>
+        <button class="btn" id="a-setpw-btn" onclick="doSetPw()">Enregistrer et entrer</button>
+        <div class="msg" id="a-setpw-msg"></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="wrap" id="app">
     <h1>🔭 Web Watcher</h1>
     <div class="sub" id="updated">Chargement…</div>
 
@@ -65,7 +123,8 @@
       <button id="tab-list" class="active" onclick="showTab('list')">📡 Veilles</button>
       <button id="tab-add" onclick="showTab('add')">➕ Ajouter</button>
       <div class="spacer"></div>
-      <button class="gear" title="Token GitHub" onclick="showTab('token')">⚙️</button>
+      <button class="gear" title="Réglages" onclick="showTab('token')">⚙️</button>
+      <button class="gear" title="Déconnexion" onclick="doLogout()">🚪</button>
     </nav>
 
     <!-- Section liste -->
@@ -132,6 +191,113 @@
   <script>
     const REPO = 'jeffreybest22/web-watcher';
     const API = 'https://api.github.com/repos/' + REPO;
+    const AUTH_API = 'https://katdyaspora.com/ww-auth.php';
+
+    // ===================== AUTHENTIFICATION =====================
+    function deviceId(){
+      let d = localStorage.getItem('ww_device');
+      if (!d) { d = 'd_' + Array.from(crypto.getRandomValues(new Uint8Array(16))).map(b=>b.toString(16).padStart(2,'0')).join(''); localStorage.setItem('ww_device', d); }
+      return d;
+    }
+    function authToken(){ return localStorage.getItem('ww_auth') || ''; }
+    let resetToken = null; // mémorisé le temps de définir le mot de passe
+
+    async function authApi(action, extra){
+      const r = await fetch(AUTH_API, {
+        method:'POST', headers:{'Content-Type':'application/json'},
+        body: JSON.stringify({ action, device_id: deviceId(), ...extra })
+      });
+      let d = {}; try { d = await r.json(); } catch(e){}
+      return { status: r.status, ...d };
+    }
+    function authMsg(id, cls, text){ const el=document.getElementById(id); el.className='msg '+cls; el.textContent=text; }
+    function authView(v){
+      for (const x of ['login','otp','setpw']) document.getElementById('auth-'+x).classList.toggle('hidden', x!==v);
+    }
+    function enterApp(){
+      document.getElementById('auth').style.display = 'none';
+      document.getElementById('app').style.display = 'block';
+      render();
+    }
+
+    async function authGate(){
+      if (authToken()) {
+        try {
+          const r = await authApi('check', { token: authToken() });
+          if (r.ok) return enterApp();
+        } catch(e){ /* réseau — reste sur login */ }
+        localStorage.removeItem('ww_auth');
+      }
+      document.getElementById('auth').style.display = 'flex';
+    }
+
+    async function doLogin(){
+      const email = document.getElementById('a-email').value.trim();
+      const password = document.getElementById('a-password').value;
+      const btn = document.getElementById('a-login-btn');
+      if (!password) return authMsg('a-msg','err','Entre ton mot de passe (ou « premier accès »).');
+      btn.disabled = true; authMsg('a-msg','ok','Connexion…');
+      try {
+        const r = await authApi('login', { email, password });
+        if (r.ok && r.token) { localStorage.setItem('ww_auth', r.token); return enterApp(); }
+        if (r.otp_required) {
+          window._authEmail = email; window._setupMode = !!r.setup;
+          authView('otp');
+          authMsg('a-otp-msg','ok', r.setup ? 'Premier accès : un code a été envoyé à ' + email + '.' : 'Nouvel appareil détecté. Code envoyé à ' + email + '.');
+          return;
+        }
+        authMsg('a-msg','err', r.error || 'Échec de connexion.');
+      } catch(e){ authMsg('a-msg','err','Erreur réseau : ' + e.message); }
+      finally { btn.disabled = false; }
+    }
+
+    async function doForgot(){
+      const email = document.getElementById('a-email').value.trim();
+      authMsg('a-msg','ok','Envoi du code…');
+      try {
+        const r = await authApi('forgot', { email });
+        if (r.ok) { window._authEmail = email; window._setupMode = true; authView('otp'); authMsg('a-otp-msg','ok','Code envoyé à ' + email + '. Entre-le pour définir un nouveau mot de passe.'); }
+        else authMsg('a-msg','err', r.error || 'Impossible d\'envoyer le code.');
+      } catch(e){ authMsg('a-msg','err','Erreur réseau : ' + e.message); }
+    }
+
+    async function doVerify(){
+      const code = document.getElementById('a-otp').value.trim();
+      const btn = document.getElementById('a-otp-btn');
+      if (code.length < 6) return authMsg('a-otp-msg','err','Entre le code à 6 chiffres.');
+      btn.disabled = true; authMsg('a-otp-msg','ok','Vérification…');
+      try {
+        const r = await authApi('verify-otp', { email: window._authEmail, code });
+        if (!r.ok) { authMsg('a-otp-msg','err', r.error || 'Code invalide.'); return; }
+        if (r.token) localStorage.setItem('ww_auth', r.token);
+        if (r.set_password) { resetToken = r.reset_token; authView('setpw'); authMsg('a-setpw-msg','ok','Choisis ton mot de passe.'); }
+        else enterApp();
+      } catch(e){ authMsg('a-otp-msg','err','Erreur réseau : ' + e.message); }
+      finally { btn.disabled = false; }
+    }
+
+    async function doSetPw(){
+      const pw = document.getElementById('a-newpw').value;
+      const pw2 = document.getElementById('a-newpw2').value;
+      const btn = document.getElementById('a-setpw-btn');
+      if (pw.length < 8) return authMsg('a-setpw-msg','err','8 caractères minimum.');
+      if (pw !== pw2) return authMsg('a-setpw-msg','err','Les deux mots de passe diffèrent.');
+      btn.disabled = true; authMsg('a-setpw-msg','ok','Enregistrement…');
+      try {
+        const r = await authApi('set-password', { reset_token: resetToken, new_password: pw });
+        if (r.ok) enterApp();
+        else authMsg('a-setpw-msg','err', r.error || 'Échec.');
+      } catch(e){ authMsg('a-setpw-msg','err','Erreur réseau : ' + e.message); }
+      finally { btn.disabled = false; }
+    }
+
+    function backToLogin(){ authView('login'); document.getElementById('a-otp').value=''; }
+    async function doLogout(){
+      try { await authApi('logout', { token: authToken() }); } catch(e){}
+      localStorage.removeItem('ww_auth');
+      location.reload();
+    }
+    // ===========================================================
 
     function esc(s){ return (s||"").replace(/[&<>]/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;'}[c])); }
     function timeago(iso){ if(!iso) return "—"; return new Date(iso).toLocaleString('fr-FR'); }
@@ -315,7 +481,7 @@ Réponds UNIQUEMENT en JSON valide :
     }
     function clearToken(){ localStorage.removeItem('ww_token'); localStorage.removeItem('ww_groq'); document.getElementById('f-token').value=''; document.getElementById('f-groq').value=''; msg('t-msg','ok','Tokens effacés.'); render(); }
 
-    render();
+    authGate();
   </script>
 </body>
 </html>
