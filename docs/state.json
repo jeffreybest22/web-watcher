@@ -1,5 +1,5 @@
 {
-  "updated_at": "2026-07-29T19:16:34.221Z",
+  "updated_at": "2026-07-29T20:30:18.263Z",
   "watches": {
     "natcash-api": {
       "id": "natcash-api",
@@ -9,8 +9,8 @@
       "confidence": 0,
       "evidence_url": null,
       "quote": null,
-      "summary": "Aucune information officielle sur une API publique ou une documentation développeur pour Natcash n'a été trouvée, et le site web officiel semble ne pas être opérationnel ou n'existe pas.",
-      "last_checked": "2026-07-29T19:16:04.502Z",
+      "summary": "Aucune information officielle sur une API publique ou une documentation développeur pour Natcash n'a été trouvée sur les sources officielles ou les résultats de recherche web. Le site web natcash.ht n'est pas actuellement opérationnel et ne fournit aucune information pertinente.",
+      "last_checked": "2026-07-29T20:29:48.968Z",
       "first_found_at": null,
       "search_provider": "duckduckgo"
     },
@@ -19,11 +19,11 @@
       "label": "Visa République Dominicaine en ligne depuis Haïti",
       "status": "watching",
       "alerted": false,
-      "confidence": 0.2,
+      "confidence": 0,
       "evidence_url": null,
       "quote": null,
-      "summary": "Aucune information concrète ou officielle n'a été trouvée sur un portail de demande de visa en ligne ou un visa électronique pour les Haïtiens sur le site du Ministère des Relations Extérieures de la République Dominicaine.",
-      "last_checked": "2026-07-29T19:16:08.651Z",
+      "summary": "Aucune information concrète ou officielle n'a été trouvée concernant la disponibilité d'une procédure de demande de visa en ligne ou d'un visa électronique pour les Haïtiens sur les sources officielles consultées.",
+      "last_checked": "2026-07-29T20:29:53.011Z",
       "first_found_at": null,
       "search_provider": "duckduckgo"
     },
@@ -35,8 +35,8 @@
       "confidence": 0,
       "evidence_url": null,
       "quote": null,
-      "summary": "Aucune information officielle ou datée n'a été trouvée concernant une nouvelle opportunité de visa pour les citoyens haïtiens sur les sites gouvernementaux ou d'ambassade surveillés.",
-      "last_checked": "2026-07-29T19:16:29.132Z",
+      "summary": "Aucune information officielle et datée n'a été trouvée concernant une nouvelle opportunité de visa pour les citoyens haïtiens. Les résultats de recherche et les sources officielles sont vides ou inaccessibles.",
+      "last_checked": "2026-07-29T20:30:13.544Z",
       "first_found_at": null,
       "search_provider": "duckduckgo"
     },
@@ -49,7 +49,7 @@
       "evidence_url": null,
       "quote": null,
       "summary": "Aucune information officielle et à jour n'a été trouvée concernant des vols directs ou avec escales entre Haïti et le Brésil. Les résultats de recherche et les sources officielles sont vides ou inaccessibles.",
-      "last_checked": "2026-07-29T19:16:34.221Z",
+      "last_checked": "2026-07-29T20:30:18.263Z",
       "first_found_at": null,
       "search_provider": "duckduckgo"
     }
