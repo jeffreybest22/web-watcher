@@ -1,5 +1,5 @@
 {
-  "updated_at": "2026-08-08T23:57:47.975Z",
+  "updated_at": "2026-08-09T02:07:54.532Z",
   "watches": {
     "natcash-api": {
       "id": "natcash-api",
@@ -10,7 +10,7 @@
       "evidence_url": null,
       "quote": null,
       "summary": "Aucune preuve concrète ou annonce officielle n'a été trouvée concernant l'existence d'une API publique ou d'une documentation développeur pour Natcash. Les résultats de recherche et les sources officielles sont vides de toute information pertinente.",
-      "last_checked": "2026-08-08T23:57:18.779Z",
+      "last_checked": "2026-08-09T02:07:25.338Z",
       "first_found_at": null,
       "search_provider": "duckduckgo"
     },
@@ -22,8 +22,8 @@
       "confidence": 0,
       "evidence_url": null,
       "quote": null,
-      "summary": "Aucune information concrète ou officielle n'a été trouvée concernant une procédure de demande de visa en ligne ou un visa électronique pour les Haïtiens sur les sources officielles surveillées.",
-      "last_checked": "2026-08-08T23:57:22.613Z",
+      "summary": "Aucune information concrète ou officielle n'a été trouvée concernant une procédure de demande de visa en ligne ou un visa électronique pour les Haïtiens sur les sources officielles consultées.",
+      "last_checked": "2026-08-09T02:07:29.317Z",
       "first_found_at": null,
       "search_provider": "duckduckgo"
     },
@@ -36,7 +36,7 @@
       "evidence_url": null,
       "quote": null,
       "summary": "Aucune information officielle ou datée n'a été trouvée concernant une nouvelle opportunité de visa pour les citoyens haïtiens sur les sites gouvernementaux ou d'ambassade surveillés.",
-      "last_checked": "2026-08-08T23:57:43.045Z",
+      "last_checked": "2026-08-09T02:07:49.763Z",
       "first_found_at": null,
       "search_provider": "duckduckgo"
     },
@@ -49,7 +49,7 @@
       "evidence_url": null,
       "quote": null,
       "summary": "Aucune information officielle et à jour n'a été trouvée sur des vols directs ou avec escales entre Haïti et le Brésil, les résultats de recherche web et les sources officielles sont vides.",
-      "last_checked": "2026-08-08T23:57:47.975Z",
+      "last_checked": "2026-08-09T02:07:54.532Z",
       "first_found_at": null,
       "search_provider": "duckduckgo"
     }
