@@ -1,5 +1,5 @@
 {
-  "updated_at": "2026-08-16T20:21:36.256Z",
+  "updated_at": "2026-08-16T20:48:28.001Z",
   "watches": {
     "natcash-api": {
       "id": "natcash-api",
@@ -9,8 +9,8 @@
       "confidence": 0,
       "evidence_url": null,
       "quote": null,
-      "summary": "Aucune information officielle sur une API publique ou une documentation développeur pour Natcash n'a été trouvée, et le site web officiel semble être indisponible ou non configuré.",
-      "last_checked": "2026-08-16T20:21:07.794Z",
+      "summary": "Aucune information officielle sur une API publique ou une documentation développeur pour Natcash n'a été trouvée. Le site web officiel n'existe pas ou n'est pas accessible.",
+      "last_checked": "2026-08-16T20:47:59.425Z",
       "first_found_at": null,
       "search_provider": "duckduckgo"
     },
@@ -22,8 +22,8 @@
       "confidence": 0,
       "evidence_url": null,
       "quote": null,
-      "summary": "Aucune information concrète ou officielle n'a été trouvée concernant la disponibilité d'une procédure de demande de visa en ligne ou d'un visa électronique pour les Haïtiens sur les sources officielles surveillées.",
-      "last_checked": "2026-08-16T20:21:11.619Z",
+      "summary": "Aucune information concrète ou officielle n'a été trouvée concernant une procédure de demande de visa en ligne ou un visa électronique pour les Haïtiens sur les sources officielles surveillées.",
+      "last_checked": "2026-08-16T20:48:03.405Z",
       "first_found_at": null,
       "search_provider": "duckduckgo"
     },
@@ -35,8 +35,8 @@
       "confidence": 0,
       "evidence_url": null,
       "quote": null,
-      "summary": "Aucune information officielle ou datée n'a été trouvée concernant une nouvelle opportunité de visa pour les citoyens haïtiens sur les sites gouvernementaux ou d'ambassade surveillés.",
-      "last_checked": "2026-08-16T20:21:31.942Z",
+      "summary": "Erreur juge: Groq HTTP 429: {\"error\":{\"message\":\"Rate limit reached for model `llama-3.3-70b-versatile` in organization `org_01kr7etc55ft4b5jvgkn8k8ky8` service tier `on_demand` on tokens per day (TPD): Limit 100000, Used 99841,",
+      "last_checked": "2026-08-16T20:48:23.458Z",
       "first_found_at": null,
       "search_provider": "duckduckgo"
     },
@@ -48,8 +48,8 @@
       "confidence": 0,
       "evidence_url": null,
       "quote": null,
-      "summary": "Erreur juge: Groq HTTP 429: {\"error\":{\"message\":\"Rate limit reached for model `llama-3.3-70b-versatile` in organization `org_01kr7etc55ft4b5jvgkn8k8ky8` service tier `on_demand` on tokens per day (TPD): Limit 100000, Used 99620,",
-      "last_checked": "2026-08-16T20:21:36.256Z",
+      "summary": "Erreur juge: Groq HTTP 429: {\"error\":{\"message\":\"Rate limit reached for model `llama-3.3-70b-versatile` in organization `org_01kr7etc55ft4b5jvgkn8k8ky8` service tier `on_demand` on tokens per day (TPD): Limit 100000, Used 99836,",
+      "last_checked": "2026-08-16T20:48:28.001Z",
       "first_found_at": null,
       "search_provider": "duckduckgo"
     }
