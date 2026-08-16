@@ -1,5 +1,5 @@
 {
-  "updated_at": "2026-08-16T16:52:10.959Z",
+  "updated_at": "2026-08-16T17:19:07.552Z",
   "watches": {
     "natcash-api": {
       "id": "natcash-api",
@@ -10,7 +10,7 @@
       "evidence_url": null,
       "quote": null,
       "summary": "Aucune information officielle sur une API publique ou une documentation développeur pour Natcash n'a été trouvée sur les sources officielles ou les résultats de recherche web. Le site web natcash.ht n'existe pas ou n'est pas accessible.",
-      "last_checked": "2026-08-16T16:51:41.782Z",
+      "last_checked": "2026-08-16T17:18:38.940Z",
       "first_found_at": null,
       "search_provider": "duckduckgo"
     },
@@ -22,8 +22,8 @@
       "confidence": 0,
       "evidence_url": null,
       "quote": null,
-      "summary": "Aucune information concrète ou officielle n'a été trouvée concernant une procédure de demande de visa en ligne ou un visa électronique pour les Haïtiens sur les sources officielles consultées.",
-      "last_checked": "2026-08-16T16:51:45.582Z",
+      "summary": "Aucune information concrète ou officielle n'a été trouvée concernant une procédure de demande de visa en ligne ou un visa électronique pour les Haïtiens sur les sources officielles surveillées.",
+      "last_checked": "2026-08-16T17:18:42.642Z",
       "first_found_at": null,
       "search_provider": "duckduckgo"
     },
@@ -35,8 +35,8 @@
       "confidence": 0,
       "evidence_url": null,
       "quote": null,
-      "summary": "Aucune information officielle ou datée n'a été trouvée concernant une nouvelle opportunité de visa pour les citoyens haïtiens sur les sites gouvernementaux ou d'ambassade surveillés.",
-      "last_checked": "2026-08-16T16:52:06.118Z",
+      "summary": "Aucune information officielle ou datée n'a été trouvée concernant une nouvelle opportunité de visa pour les citoyens haïtiens. Les résultats de recherche et les sources officielles sont vides ou inaccessibles.",
+      "last_checked": "2026-08-16T17:19:02.934Z",
       "first_found_at": null,
       "search_provider": "duckduckgo"
     },
@@ -48,8 +48,8 @@
       "confidence": 0,
       "evidence_url": null,
       "quote": null,
-      "summary": "Aucune information officielle et à jour n'a été trouvée sur des vols directs ou avec escales entre Haïti et le Brésil, les résultats de recherche web et les sources officielles sont vides.",
-      "last_checked": "2026-08-16T16:52:10.959Z",
+      "summary": "Aucune information officielle et à jour n'a été trouvée concernant des vols directs ou avec escales entre Haïti et le Brésil. Les résultats de recherche et les sources officielles sont vides ou inaccessibles.",
+      "last_checked": "2026-08-16T17:19:07.552Z",
       "first_found_at": null,
       "search_provider": "duckduckgo"
     }
