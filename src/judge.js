@@ -1,6 +1,7 @@
 // Juge LLM (Groq, API compatible OpenAI) : décide si l'information surveillée est VRAIMENT annoncée.
 const GROQ_URL = "https://api.groq.com/openai/v1/chat/completions";
-const MODEL = process.env.GROQ_MODEL || "llama-3.3-70b-versatile";
+// Groq a retiré llama-3.3-70b-versatile (404 model_not_found, 08/2026) → gpt-oss (raisonnement).
+const MODEL = process.env.GROQ_MODEL || "openai/gpt-oss-120b";
 
 const SYSTEM = `Tu es un analyste de veille rigoureux. On te donne une QUESTION de surveillance et une liste d'INDICES (résultats de recherche web + extraits de pages officielles).
 Ta tâche : déterminer si l'information demandée est CONCRÈTEMENT et OFFICIELLEMENT disponible/annoncée MAINTENANT.
@@ -50,6 +51,7 @@ export async function judge(watch, sources, search) {
     body: JSON.stringify({
       model: MODEL,
       temperature: 0,
+      reasoning_effort: "low",
       response_format: { type: "json_object" },
       messages: [
         { role: "system", content: SYSTEM },
