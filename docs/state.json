@@ -1,5 +1,5 @@
 {
-  "updated_at": "2026-09-28T01:52:50.906Z",
+  "updated_at": "2026-09-28T08:18:03.161Z",
   "watches": {
     "natcash-api": {
       "id": "natcash-api",
@@ -10,7 +10,7 @@
       "evidence_url": null,
       "quote": null,
       "summary": "Erreur juge: Groq HTTP 404: {\"error\":{\"message\":\"The model `llama-3.3-70b-versatile` does not exist or you do not have access to it.\",\"type\":\"invalid_request_error\",\"code\":\"model_not_found\"}}\n",
-      "last_checked": "2026-09-28T01:52:22.606Z",
+      "last_checked": "2026-09-28T08:17:35.284Z",
       "first_found_at": null,
       "search_provider": "duckduckgo"
     },
@@ -23,7 +23,7 @@
       "evidence_url": null,
       "quote": null,
       "summary": "Erreur juge: Groq HTTP 404: {\"error\":{\"message\":\"The model `llama-3.3-70b-versatile` does not exist or you do not have access to it.\",\"type\":\"invalid_request_error\",\"code\":\"model_not_found\"}}\n",
-      "last_checked": "2026-09-28T01:52:26.179Z",
+      "last_checked": "2026-09-28T08:17:38.654Z",
       "first_found_at": null,
       "search_provider": "duckduckgo"
     },
@@ -36,7 +36,7 @@
       "evidence_url": null,
       "quote": null,
       "summary": "Erreur juge: Groq HTTP 404: {\"error\":{\"message\":\"The model `llama-3.3-70b-versatile` does not exist or you do not have access to it.\",\"type\":\"invalid_request_error\",\"code\":\"model_not_found\"}}\n",
-      "last_checked": "2026-09-28T01:52:46.235Z",
+      "last_checked": "2026-09-28T08:17:58.759Z",
       "first_found_at": null,
       "search_provider": "duckduckgo"
     },
@@ -49,7 +49,7 @@
       "evidence_url": null,
       "quote": null,
       "summary": "Erreur juge: Groq HTTP 404: {\"error\":{\"message\":\"The model `llama-3.3-70b-versatile` does not exist or you do not have access to it.\",\"type\":\"invalid_request_error\",\"code\":\"model_not_found\"}}\n",
-      "last_checked": "2026-09-28T01:52:50.906Z",
+      "last_checked": "2026-09-28T08:18:03.161Z",
       "first_found_at": null,
       "search_provider": "duckduckgo"
     }
