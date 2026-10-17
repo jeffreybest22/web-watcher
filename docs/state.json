@@ -1,5 +1,5 @@
 {
-  "updated_at": "2026-10-17T19:02:58.207Z",
+  "updated_at": "2026-10-17T21:36:47.317Z",
   "watches": {
     "natcash-api": {
       "id": "natcash-api",
@@ -10,7 +10,7 @@
       "evidence_url": null,
       "quote": null,
       "summary": "Aucun résultat ni extrait ne montre une annonce officielle ou une documentation d'API publique pour Natcash/Unibank ; les seules informations disponibles concernent le domaine web, sans mention d'API.",
-      "last_checked": "2026-10-17T19:02:28.578Z",
+      "last_checked": "2026-10-17T21:36:18.332Z",
       "first_found_at": null,
       "search_provider": "duckduckgo"
     },
@@ -23,7 +23,7 @@
       "evidence_url": null,
       "quote": null,
       "summary": "Aucun portail ou annonce officielle de visa en ligne/e‑visa pour les Haïtiens n’est présent sur le site du ministère des Affaires étrangères dominicain ou d’autres sources officielles ; les résultats de recherche sont vides, indiquant l’absence de telle procédure.",
-      "last_checked": "2026-10-17T19:02:33.215Z",
+      "last_checked": "2026-10-17T21:36:22.163Z",
       "first_found_at": null,
       "search_provider": "duckduckgo"
     },
@@ -36,7 +36,7 @@
       "evidence_url": null,
       "quote": null,
       "summary": "Aucune source officielle ou page web ne mentionne une nouvelle opportunité de visa pour les citoyens haïtiens avec une date d'application précise.",
-      "last_checked": "2026-10-17T19:02:53.521Z",
+      "last_checked": "2026-10-17T21:36:42.483Z",
       "first_found_at": null,
       "search_provider": "duckduckgo"
     },
@@ -45,11 +45,11 @@
       "label": "Vols Haïti - Brésil",
       "status": "watching",
       "alerted": false,
-      "confidence": 0.99,
+      "confidence": 1,
       "evidence_url": null,
       "quote": null,
-      "summary": "Aucune source officielle ou récente ne confirme l'existence de vols directs ou avec escales entre Haïti et le Brésil, les recherches n'ont retourné aucun résultat.",
-      "last_checked": "2026-10-17T19:02:58.207Z",
+      "summary": "Aucune source officielle ou récente ne confirme l'existence de vols directs ou avec escales entre Haïti et le Brésil.",
+      "last_checked": "2026-10-17T21:36:47.317Z",
       "first_found_at": null,
       "search_provider": "duckduckgo"
     }
