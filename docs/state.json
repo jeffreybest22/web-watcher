@@ -1,5 +1,5 @@
 {
-  "updated_at": "2026-10-23T11:56:17.703Z",
+  "updated_at": "2026-10-23T16:38:52.692Z",
   "watches": {
     "natcash-api": {
       "id": "natcash-api",
@@ -10,7 +10,7 @@
       "evidence_url": null,
       "quote": null,
       "summary": "Aucune page officielle, documentation ou annonce concernant une API publique pour Natcash/Unibank n'a été trouvée dans les résultats fournis.",
-      "last_checked": "2026-10-23T11:55:48.586Z",
+      "last_checked": "2026-10-23T16:38:22.826Z",
       "first_found_at": null,
       "search_provider": "duckduckgo"
     },
@@ -23,7 +23,7 @@
       "evidence_url": null,
       "quote": null,
       "summary": "Aucun portail ou annonce officielle de visa en ligne/e‑visa pour les Haïtiens n’est présent sur le site du ministère dominicain des Affaires étrangères, et aucune source fiable ne le mentionne.",
-      "last_checked": "2026-10-23T11:55:52.285Z",
+      "last_checked": "2026-10-23T16:38:26.951Z",
       "first_found_at": null,
       "search_provider": "duckduckgo"
     },
@@ -32,11 +32,11 @@
       "label": "Visa pour les Haïtiens",
       "status": "watching",
       "alerted": false,
-      "confidence": 1,
+      "confidence": 0.99,
       "evidence_url": null,
       "quote": null,
       "summary": "Aucune source officielle ni page web ne mentionne une nouvelle opportunité de visa pour les citoyens haïtiens avec date d'application précise.",
-      "last_checked": "2026-10-23T11:56:13.015Z",
+      "last_checked": "2026-10-23T16:38:47.491Z",
       "first_found_at": null,
       "search_provider": "duckduckgo"
     },
@@ -45,11 +45,11 @@
       "label": "Vols Haïti - Brésil",
       "status": "watching",
       "alerted": false,
-      "confidence": 1,
+      "confidence": 0.99,
       "evidence_url": null,
       "quote": null,
       "summary": "Aucune source officielle ou récente ne confirme l'existence de vols directs ou avec escales entre Haïti et le Brésil, aucune information disponible dans les résultats fournis.",
-      "last_checked": "2026-10-23T11:56:17.703Z",
+      "last_checked": "2026-10-23T16:38:52.692Z",
       "first_found_at": null,
       "search_provider": "duckduckgo"
     }
