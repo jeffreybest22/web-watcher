@@ -1,5 +1,5 @@
 {
-  "updated_at": "2026-11-08T18:58:00.113Z",
+  "updated_at": "2026-11-08T22:44:24.582Z",
   "watches": {
     "natcash-api": {
       "id": "natcash-api",
@@ -10,7 +10,7 @@
       "evidence_url": null,
       "quote": null,
       "summary": "Aucune page officielle, documentation ou annonce d'API publique pour Natcash/Unibank n'a été trouvée dans les résultats fournis, il n'existe donc aucune preuve concrète d'une telle disponibilité.",
-      "last_checked": "2026-11-08T18:57:30.916Z",
+      "last_checked": "2026-11-08T22:43:55.123Z",
       "first_found_at": null,
       "search_provider": "duckduckgo"
     },
@@ -23,7 +23,7 @@
       "evidence_url": null,
       "quote": null,
       "summary": "Aucun portail ou annonce officielle de visa en ligne/e‑visa pour les Haïtiens n’est présent sur le site du ministère dominicain des Affaires étrangères, aucune source fiable ne le confirme.",
-      "last_checked": "2026-11-08T18:57:34.977Z",
+      "last_checked": "2026-11-08T22:43:59.360Z",
       "first_found_at": null,
       "search_provider": "duckduckgo"
     },
@@ -36,7 +36,7 @@
       "evidence_url": null,
       "quote": null,
       "summary": "Aucune source officielle ni page web ne mentionne une nouvelle opportunité de visa pour les citoyens haïtiens avec date d'application précise.",
-      "last_checked": "2026-11-08T18:57:55.471Z",
+      "last_checked": "2026-11-08T22:44:19.678Z",
       "first_found_at": null,
       "search_provider": "duckduckgo"
     },
@@ -48,8 +48,8 @@
       "confidence": 0.99,
       "evidence_url": null,
       "quote": null,
-      "summary": "Aucune source officielle ou récente ne confirme l'existence de vols directs ou avec escales entre Haïti et le Brésil, les recherches n'ont retourné aucun résultat.",
-      "last_checked": "2026-11-08T18:58:00.113Z",
+      "summary": "Aucune source officielle ou récente ne confirme l'existence de vols directs ou avec escales entre Haïti et le Brésil.",
+      "last_checked": "2026-11-08T22:44:24.582Z",
       "first_found_at": null,
       "search_provider": "duckduckgo"
     }
