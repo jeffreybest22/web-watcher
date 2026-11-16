@@ -1,16 +1,16 @@
 {
-  "updated_at": "2026-11-16T00:11:15.657Z",
+  "updated_at": "2026-11-16T07:03:51.500Z",
   "watches": {
     "natcash-api": {
       "id": "natcash-api",
       "label": "API Natcash disponible pour développeurs",
       "status": "watching",
       "alerted": false,
-      "confidence": 0.93,
-      "evidence_url": "https://www.devayiti.com/questions/cmuk2j2p3003lrsi4rpzk50ci/how-do-i-get-access-to-the-natcash-merchant-api",
-      "quote": "Unlike MonCash, NatCash doesn't publish an open developer portal with self‑service sandbox keys. Integration access goes through Natcom's business / merchant team",
-      "summary": "Aucune source officielle ne montre l'existence d'une API publique ou d'une documentation développeur pour Natcash ; les réponses indiquent qu'il n'existe pas de portail ouvert et que l'accès se fait uniquement via l'équipe commerciale.",
-      "last_checked": "2026-11-16T00:10:45.703Z",
+      "confidence": 0.97,
+      "evidence_url": null,
+      "quote": null,
+      "summary": "Aucune page officielle, documentation ou annonce concernant une API publique pour Natcash/Unibank n'a été trouvée dans les résultats fournis.",
+      "last_checked": "2026-11-16T07:03:22.018Z",
       "first_found_at": null,
       "search_provider": "duckduckgo"
     },
@@ -23,7 +23,7 @@
       "evidence_url": null,
       "quote": null,
       "summary": "Aucun portail ou annonce officielle de visa en ligne/e‑visa pour les Haïtiens n’est présent sur le site du ministère dominicain des Affaires étrangères, et aucune source fiable ne le mentionne.",
-      "last_checked": "2026-11-16T00:10:49.915Z",
+      "last_checked": "2026-11-16T07:03:26.359Z",
       "first_found_at": null,
       "search_provider": "duckduckgo"
     },
@@ -35,8 +35,8 @@
       "confidence": 1,
       "evidence_url": null,
       "quote": null,
-      "summary": "Aucune source officielle ni page web ne mentionne une nouvelle opportunité de visa pour les citoyens haïtiens avec date d'application précise.",
-      "last_checked": "2026-11-16T00:11:10.425Z",
+      "summary": "Aucune source officielle ou page web ne mentionne une nouvelle opportunité de visa pour les citoyens haïtiens avec une date d'application précise.",
+      "last_checked": "2026-11-16T07:03:46.848Z",
       "first_found_at": null,
       "search_provider": "duckduckgo"
     },
@@ -48,8 +48,8 @@
       "confidence": 0.99,
       "evidence_url": null,
       "quote": null,
-      "summary": "Aucune source officielle ou récente ne confirme l'existence de vols directs ou avec escales entre Haïti et le Brésil, les recherches n'ont retourné aucun résultat.",
-      "last_checked": "2026-11-16T00:11:15.657Z",
+      "summary": "Aucune source officielle ou récente ne confirme l'existence de vols directs ou avec escales entre Haïti et le Brésil, aucune information disponible dans les résultats fournis.",
+      "last_checked": "2026-11-16T07:03:51.500Z",
       "first_found_at": null,
       "search_provider": "duckduckgo"
     }
